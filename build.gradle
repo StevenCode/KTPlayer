@@ -3,6 +3,10 @@ buildscript {
 
     repositories {
         mavenCentral()
+        maven {
+            name "aliyunmaven"
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -16,10 +20,25 @@ apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
+    repositories {
+        flatDir {
+            dirs 'lib'
+        }
+    }
+}
+
+configurations {
+    artifact
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile group: 'com.jfoenix', name: 'jfoenix', version: '1.4.0'
+    compile group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
+    artifact name: 'tritonus_share'
+    artifact name: 'jl1.0.1'
+
+    configurations.compile.extendsFrom(configurations.artifact)
 }
 
 compileKotlin {
