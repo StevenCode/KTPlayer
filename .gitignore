@@ -22,7 +22,9 @@
 *.rar
 *.wav
 *.mp3
+*.iml
 
+.idea
 .gradle
 /build
 
