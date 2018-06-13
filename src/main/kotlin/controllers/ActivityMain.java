@@ -50,7 +50,7 @@ public class ActivityMain extends MainActivityFrameWork{
 
     }
 
-    @FXML
+    @Override
     protected void showOpenFileDialog() {
         openFile(getChooser().showOpenDialog(window.getScene().getWindow()));
     }
