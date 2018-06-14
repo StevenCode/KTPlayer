@@ -10,6 +10,7 @@ class PlayerRunSupporter {
     }
 
     fun run(playData: PlayData, ais: AudioInputStream, line: SourceDataLine) {
+        println("playing")
         try {
             line.open()
         } catch (e: Exception) {
@@ -18,18 +19,19 @@ class PlayerRunSupporter {
         line.start()
         var inBytes = 0
         var cnt = 0
-        while (inBytes != -1 && playData.threadExit) {
+        while (inBytes != -1 && !playData.threadExit) {
             if (!playData.isPaused) {
                 if (0 == cnt % 100)
                     println("loop ${cnt++}")
                 val audioData = ByteArray(BUFFER_SIZE)
                 inBytes = ais.read(audioData, 0, BUFFER_SIZE)
-                if (inBytes > 0)
+                if (inBytes >= 0)
                     line.write(audioData, 0, inBytes)
             }
+        }
             line.drain()
             line.close()
             println("Ended playing")
-        }
+
     }
 }

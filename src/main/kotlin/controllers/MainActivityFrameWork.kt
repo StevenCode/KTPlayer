@@ -89,6 +89,7 @@ abstract class MainActivityFrameWork {
             stopped = true
             dekoder?.onStop()
         }
+
         getPlayButton().text = PLAY
         stop()
     }
@@ -117,6 +118,10 @@ abstract class MainActivityFrameWork {
     open protected fun openFile(file: File) {
         println("openFile in MainActivity called.")
         val path = file.path
+        if (dekoder == null) {
+            dekoder = choose(path);
+        }
+
         try {
             stopPlaying()
         } catch (e: NullPointerException) {
